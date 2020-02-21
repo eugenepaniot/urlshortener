@@ -1,0 +1,35 @@
+{% block header %}
+  {% include "header.html" %}
+{% endblock %}
+
+{% if error_message %}
+<div class="alert alert-danger">
+  <strong>Error:</strong>
+	{{ error_message }}
+</div>
+{% endif %}
+
+<div class="card-body px-lg-5 pt-0">
+	<div class="md-form mt-1" style="color: #757575;">
+		<form action="{% url 'shorten' %}" method="post" class="text-center">
+			{% csrf_token %}
+			<div class="md-form mt-3">
+				<label for="target">Target URL: </label>
+				<input type="text" name="target" class="form-control"><br/><br/>
+				<input type="submit" value="Shorten" />
+			</div>
+		</form>
+	</div>
+</div>
+
+{% if tiny and not error_message %}
+<div class="alert alert-success">
+<strong>Shortened URL:</strong>
+	<a href="{{tiny}}">{{tiny}}</a>
+</div>
+{% endif %}
+
+
+{% block footer %}
+  {% include "footer.html" %}
+{% endblock %}
